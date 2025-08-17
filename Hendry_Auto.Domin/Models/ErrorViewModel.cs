@@ -1,4 +1,4 @@
-namespace Hendry_Auto.Web.Models
+namespace Hendry_Auto.Domain.Models
 {
     public class ErrorViewModel
     {

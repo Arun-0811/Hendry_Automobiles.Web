@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36121.58 d17.14
+VisualStudioVersion = 17.14.36121.58
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hendry_Auto.Web", "Hendry_Auto.Web\Hendry_Auto.Web.csproj", "{C3554F33-DFCF-4DEA-9DA0-735DC968066B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hendry_Auto.Application", "Hendry_Auto.Application\Hendry_Auto.Application.csproj", "{66FBCAD9-3F95-40D1-A0F5-C8637A63E0F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hendry_Auto.Domain", "Hendry_Auto.Domin\Hendry_Auto.Domain.csproj", "{2545F22F-FED1-4697-B641-A5074BBF65EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hendry_Auto.Infrastructure", "Hendry_Auto.Infrastructure\Hendry_Auto.Infrastructure.csproj", "{F90B290F-397C-4366-86C7-3E055C7C3047}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{C3554F33-DFCF-4DEA-9DA0-735DC968066B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3554F33-DFCF-4DEA-9DA0-735DC968066B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3554F33-DFCF-4DEA-9DA0-735DC968066B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66FBCAD9-3F95-40D1-A0F5-C8637A63E0F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66FBCAD9-3F95-40D1-A0F5-C8637A63E0F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66FBCAD9-3F95-40D1-A0F5-C8637A63E0F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66FBCAD9-3F95-40D1-A0F5-C8637A63E0F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2545F22F-FED1-4697-B641-A5074BBF65EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2545F22F-FED1-4697-B641-A5074BBF65EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2545F22F-FED1-4697-B641-A5074BBF65EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2545F22F-FED1-4697-B641-A5074BBF65EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F90B290F-397C-4366-86C7-3E055C7C3047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F90B290F-397C-4366-86C7-3E055C7C3047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F90B290F-397C-4366-86C7-3E055C7C3047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F90B290F-397C-4366-86C7-3E055C7C3047}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

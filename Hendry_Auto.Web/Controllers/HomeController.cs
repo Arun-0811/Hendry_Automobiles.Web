@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using Hendry_Auto.Web.Models;
+using Hendry_Auto.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hendry_Auto.Web.Controllers

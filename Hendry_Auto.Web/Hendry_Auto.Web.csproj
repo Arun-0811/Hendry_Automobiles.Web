@@ -15,4 +15,14 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\brand\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hendry_Auto.Application\Hendry_Auto.Application.csproj" />
+    <ProjectReference Include="..\Hendry_Auto.Domin\Hendry_Auto.Domain.csproj" />
+    <ProjectReference Include="..\Hendry_Auto.Infrastructure\Hendry_Auto.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
