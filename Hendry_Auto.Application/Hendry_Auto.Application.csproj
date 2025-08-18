@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Hendry_Auto.Domin\Hendry_Auto.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

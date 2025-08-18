@@ -4,23 +4,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Hendry_Auto.Infrastructure.Common;
 using Hendry_Auto.Application.ApplicationConstants;
+using Hendry_Auto.Application.Contracts.Persistence;
+using System.Threading.Tasks;
 
 namespace Hendry_Auto.Web.Controllers
 {
     public class BrandController : Controller
     {
-        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IUnitOfWork _UnitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public BrandController(ApplicationDbContext applicationDbContext, IWebHostEnvironment webHostEnvironment)
+        public BrandController(IUnitOfWork UnitOfWork, IWebHostEnvironment webHostEnvironment)
         {
-            _applicationDbContext=applicationDbContext;
+            _UnitOfWork = UnitOfWork;
             _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Brand> brands = _applicationDbContext.Brands.ToList();
+            List<Brand> brands =await _UnitOfWork.Brand.GetAllAsync();
             return View(brands);
         }
         [HttpGet]
@@ -29,7 +31,7 @@ namespace Hendry_Auto.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Brand brand)
+        public async Task<IActionResult> Create(Brand brand)
         {
             string WebRootPath = _webHostEnvironment.WebRootPath;
 
@@ -49,17 +51,17 @@ namespace Hendry_Auto.Web.Controllers
             }
             if(ModelState.IsValid)
             {
-                _applicationDbContext.Brands.Add(brand);
-                _applicationDbContext.SaveChanges();
+                await _UnitOfWork.Brand.Create(brand);
+                await _UnitOfWork.SaveAsync();
                 TempData["Success"] = CommonMessage.RecordCreated;
                 return RedirectToAction(nameof(Index));
             }
             return View(brand);
         }
         [HttpGet]
-        public IActionResult Details(Guid id)
+        public async Task<IActionResult> Details(Guid id)
         {
-            Brand brand = _applicationDbContext.Brands.FirstOrDefault(x => x.Id == id);
+            Brand brand = await _UnitOfWork.Brand.GetByIdAsync(id);
             if (brand == null)
             {
                 return NotFound();
@@ -67,9 +69,9 @@ namespace Hendry_Auto.Web.Controllers
             return View(brand);
         }
         [HttpGet]
-        public IActionResult Edit(Guid id)
+        public async Task<IActionResult> Edit(Guid id)
         {
-            Brand brand = _applicationDbContext.Brands.FirstOrDefault(x => x.Id == id);
+            Brand brand = await _UnitOfWork.Brand.GetByIdAsync(id);
             if(brand == null)
             {
                 return NotFound();
@@ -77,7 +79,7 @@ namespace Hendry_Auto.Web.Controllers
             return View(brand);
         }
         [HttpPost]
-        public IActionResult Edit(Brand brand)
+        public async Task<IActionResult> Edit(Brand brand)
         {
             string WebRootPath = _webHostEnvironment.WebRootPath;
             var file = HttpContext.Request.Form.Files;
@@ -88,7 +90,7 @@ namespace Hendry_Auto.Web.Controllers
                 var extention = Path.GetExtension(file[0].FileName);
 
                 // Delete old file if it exists
-                var objFromDb = _applicationDbContext.Brands.AsNoTracking().FirstOrDefault(x => x.Id == brand.Id);
+                var objFromDb = await _UnitOfWork.Brand.GetByIdAsync(brand.Id);
 
                 if(objFromDb.BrandLogo != null)
                 {
@@ -107,7 +109,7 @@ namespace Hendry_Auto.Web.Controllers
             }
             if (ModelState.IsValid)
             {
-                var objFromDb = _applicationDbContext.Brands.AsNoTracking().FirstOrDefault(x => x.Id == brand.Id);
+                var objFromDb = await _UnitOfWork.Brand.GetByIdAsync(brand.Id);
                 objFromDb.Name = brand.Name;
                 objFromDb.EstablishedYear = brand.EstablishedYear;
                 if (brand.BrandLogo != null) 
@@ -118,8 +120,8 @@ namespace Hendry_Auto.Web.Controllers
                 {
                     objFromDb.BrandLogo = objFromDb.BrandLogo; // Keep the old logo if no new one is provided
                 }
-                _applicationDbContext.Brands.Update(objFromDb);
-                _applicationDbContext.SaveChanges();
+                await _UnitOfWork.Brand.Update(brand);
+                await _UnitOfWork.SaveAsync();
                 TempData["Warning"] = CommonMessage.RecordUpdated;
                 return RedirectToAction(nameof(Index));
             }
@@ -127,9 +129,9 @@ namespace Hendry_Auto.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            Brand brand = _applicationDbContext.Brands.FirstOrDefault(x => x.Id == id);
+            Brand brand = await _UnitOfWork.Brand.GetByIdAsync(id);
             if (brand == null)
             {
                 return NotFound();
@@ -137,13 +139,13 @@ namespace Hendry_Auto.Web.Controllers
             return View(brand);
         }
         [HttpPost]
-        public IActionResult Delete(Brand brand)
+        public async Task<IActionResult> Delete(Brand brand)
         {
             string WebRootPath = _webHostEnvironment.WebRootPath;
             if(!string.IsNullOrEmpty(brand.BrandLogo))
             {
                 // Delete old file if it exists
-                var objFromDb = _applicationDbContext.Brands.AsNoTracking().FirstOrDefault(x => x.Id == brand.Id);
+                var objFromDb = await _UnitOfWork.Brand.GetByIdAsync(brand.Id);
 
                 if (objFromDb.BrandLogo != null)
                 {
@@ -155,8 +157,8 @@ namespace Hendry_Auto.Web.Controllers
                 }
 
             }
-            _applicationDbContext.Brands.Remove(brand);
-            _applicationDbContext.SaveChanges();
+            await _UnitOfWork.Brand.Delete(brand);
+            await _UnitOfWork.SaveAsync();
             TempData["Error"] = CommonMessage.RecordDeleted;
             return RedirectToAction(nameof(Index));
         }

@@ -1,3 +1,6 @@
+using Hendry_Auto.Application.Contracts.Persistence;
+using Hendry_Auto.Infrastructure.Repositories;
+using Hendry_Auto.Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +10,12 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<Hendry_Auto.Infrastructure.Common.ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
