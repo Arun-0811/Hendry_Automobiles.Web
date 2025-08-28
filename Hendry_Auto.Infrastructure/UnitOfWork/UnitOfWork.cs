@@ -16,8 +16,11 @@ namespace Hendry_Auto.Infrastructure.UnitOfWork
         {
             _dbcontext = dbcontext;
             Brand = new BrandRepository(_dbcontext);
+            VehicleType = new VehicleTypeRepository(_dbcontext);
         }
         public IBrandRepository Brand { get; set; }
+
+        public IVehicleTypeRepository VehicleType { get; private set; }
 
         public void Dispose()
         {

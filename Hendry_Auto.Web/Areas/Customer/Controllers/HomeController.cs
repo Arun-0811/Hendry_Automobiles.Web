@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Hendry_Auto.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hendry_Auto.Web.Controllers
+namespace Hendry_Auto.Web.Areas.Customer.Controllers
 {
     public class HomeController : Controller
     {

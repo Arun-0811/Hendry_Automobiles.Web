@@ -7,7 +7,7 @@ using Hendry_Auto.Application.ApplicationConstants;
 using Hendry_Auto.Application.Contracts.Persistence;
 using System.Threading.Tasks;
 
-namespace Hendry_Auto.Web.Controllers
+namespace Hendry_Auto.Web.Areas.Admin.Controllers
 {
     public class BrandController : Controller
     {

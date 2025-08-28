@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Hendry_Auto.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,9 @@ namespace Hendry_Auto.Infrastructure.Common
 
         }
         public DbSet<Hendry_Auto.Domain.Models.Brand> Brands { get; set; }
+
+        public DbSet<Hendry_Auto.Domain.Models.VehicleType> VehicleTypes { get; set; }
+
+        public DbSet<Post> Posts { get; set; }
     }
 }

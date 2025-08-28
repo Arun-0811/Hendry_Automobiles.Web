@@ -10,6 +10,9 @@ namespace Hendry_Auto.Application.Contracts.Persistence
     {
         public IBrandRepository Brand { get; }
 
+        public IVehicleTypeRepository VehicleType { get; }
         Task SaveAsync();
+
+
     }
 }
