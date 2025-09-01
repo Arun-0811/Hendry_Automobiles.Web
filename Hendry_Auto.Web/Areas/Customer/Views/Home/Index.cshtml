@@ -1,8 +1,41 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<Post>
+@if (Model.Count > 0)
+{
+    <div class="container p-4">
+        <div class="row">
+            @foreach(var item in Model)
+            {
+                <div class="col-md-4" style="margin-bottom:20px">
+                    <div class="card border-2 border border-dark shadow mb-2 bg-white rounded">
+                        <div class="card-header">
+                        <img src="@item.VehicleImage" height="250px" width="100%"/>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-primary text-uppercase" style="font-weight:bold">@item.Name</h6>
+                                    <p class=" text-uppercase" style="font-weight:bold; color:red"><span>@item.PriceFrom.ToString("c")</span></p>
+                                    <a class="btn btn-success" href="@Url.Action("Details", "Home")">Details</a>
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    <img src="@item.Brand.BrandLogo" height="60px" width="60px" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center text-uppercase text-warning pt-4">
+                    No Records to Show...!
+                </h2>
+            </div>
+        </div>
+    </div>
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>

@@ -6,9 +6,12 @@ using Hendry_Auto.Infrastructure.Common;
 using Hendry_Auto.Application.ApplicationConstants;
 using Hendry_Auto.Application.Contracts.Persistence;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hendry_Auto.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = CustomRole.MasterAdmin + "," + CustomRole.Admin)]
     public class BrandController : Controller
     {
         private readonly IUnitOfWork _UnitOfWork;
@@ -28,6 +31,7 @@ namespace Hendry_Auto.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+
             return View();
         }
         [HttpPost]

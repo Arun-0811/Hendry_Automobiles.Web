@@ -39,6 +39,8 @@ namespace Hendry_Auto.Domain.Models
 
         public int Engine { get; set; }
 
+        public int Mileage { get; set; }
+
         public int Range { get; set; }
 
         [Display(Name = "Upload Vehicle Image")]

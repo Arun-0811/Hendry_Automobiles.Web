@@ -13,6 +13,8 @@ namespace Hendry_Auto.Application.Contracts.Persistence
         public IVehicleTypeRepository VehicleType { get; }
         Task SaveAsync();
 
+        public IPostRepository Post { get; }
+
 
     }
 }

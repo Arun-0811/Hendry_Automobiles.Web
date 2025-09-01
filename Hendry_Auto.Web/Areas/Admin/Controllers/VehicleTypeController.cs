@@ -1,10 +1,13 @@
 ﻿using Hendry_Auto.Application.ApplicationConstants;
 using Hendry_Auto.Application.Contracts.Persistence;
 using Hendry_Auto.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hendry_Auto.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = CustomRole.MasterAdmin + "," + CustomRole.Admin)]
     public class VehicleTypeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

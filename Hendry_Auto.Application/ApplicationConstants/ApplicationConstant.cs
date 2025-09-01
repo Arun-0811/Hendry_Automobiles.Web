@@ -18,4 +18,11 @@ namespace Hendry_Auto.Application.ApplicationConstants
         public static string RecordDeleted = "Record Deleted Successfully";
 
     }
+
+    public static class  CustomRole
+    {
+        public const string MasterAdmin = "MASTERADMIN";
+        public const string Admin = "ADMIN";
+        public const string Customer = "CUSTOMER";
+    }
 }
