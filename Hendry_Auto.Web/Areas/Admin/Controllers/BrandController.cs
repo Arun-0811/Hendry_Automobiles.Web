@@ -16,17 +16,29 @@ namespace Hendry_Auto.Web.Areas.Admin.Controllers
     {
         private readonly IUnitOfWork _UnitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public BrandController(IUnitOfWork UnitOfWork, IWebHostEnvironment webHostEnvironment)
+        private readonly ILogger<BrandController> _logger;
+        public BrandController(IUnitOfWork UnitOfWork, IWebHostEnvironment webHostEnvironment, ILogger<BrandController> logger)
         {
             _UnitOfWork = UnitOfWork;
             _webHostEnvironment = webHostEnvironment;
+            _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<Brand> brands =await _UnitOfWork.Brand.GetAllAsync();
-            return View(brands);
+            try
+            {
+                List<Brand> brands = await _UnitOfWork.Brand.GetAllAsync();
+                _logger.LogInformation("Successfully retrieved {Count} brands.", brands.Count);
+                return View(brands);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while retrieving brands.");
+                return View();
+            }  
+           
         }
         [HttpGet]
         public IActionResult Create()

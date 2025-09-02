@@ -61,5 +61,50 @@ namespace Hendry_Auto.Infrastructure.Repositories
             }
         }
 
+        public async Task <List<Post>> GetAllPost(string? SearchName, Guid? brandId, Guid? VehicleTypeId)
+        {
+            var query = _dbcontext.Posts.Include(x => x.Brand).Include(x => x.VehicleType).OrderByDescending(x=>x.ModifiedOn);
+            if (SearchName == string.Empty && brandId == Guid.Empty && VehicleTypeId == Guid.Empty)
+            {
+                return await query.ToListAsync();
+            }
+            if (brandId != Guid.Empty)
+            {
+                query =(IOrderedQueryable<Post>)query.Where(x=>x.BrandId == brandId);
+            }
+            if (VehicleTypeId != Guid.Empty)
+            {
+                query = (IOrderedQueryable<Post>)query.Where(x => x.VehicleTypeId == VehicleTypeId);
+            }
+            if(!string.IsNullOrEmpty(SearchName))
+            {
+                query = (IOrderedQueryable<Post>)query.Where(x => x.Name.Contains(SearchName));
+            }
+            return await query.ToListAsync();
+        }
+
+        public async Task<List<Post>> GetAllPost(Guid? skipRecord, Guid? brandId)
+        {
+            var query = _dbcontext.Posts.Include(x => x.Brand).Include(x => x.VehicleType).OrderByDescending(x => x.ModifiedOn);
+            if (brandId == Guid.Empty)
+            {
+                return await query.ToListAsync();
+            }
+
+            if(brandId != Guid.Empty)
+            {
+                query = (IOrderedQueryable<Post>)query.Where(x => x.BrandId == brandId);
+            }
+            var posts = await query.ToListAsync();
+            if (skipRecord.HasValue)
+            {
+                var recordToRemove = posts.FirstOrDefault(x => x.Id == skipRecord.Value);
+                if (recordToRemove != null)
+                {
+                    posts.Remove(recordToRemove);
+                }
+            }
+            return posts;
+        }
     }
 }

@@ -14,5 +14,9 @@ namespace Hendry_Auto.Application.Contracts.Persistence
         Task<Post> GetPostById(Guid id);
 
         Task<List<Post>> GetAllPost();
+
+        Task <List<Post>> GetAllPost(Guid? skipRecord, Guid? brandId);
+
+        Task<List<Post>> GetAllPost(string? searchName, Guid? brandId, Guid? VehicleTypeId);
     }
 }

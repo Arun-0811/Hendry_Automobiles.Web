@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Hendry_Auto.Application.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Hendry_Auto.Application.Services.Interface;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,15 @@ builder.Services.AddSession(options => {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+});
+
+builder.Host.UseSerilog((Context,config)=>
+{
+    config.WriteTo.File("Logs/Log.txt", rollingInterval: RollingInterval.Day);
+    if(Context.HostingEnvironment.IsProduction()==false)
+    {
+        config.WriteTo.Console();
+    }
 });
 
 builder.Services.AddScoped<IUserNameService, UserNameService>();
